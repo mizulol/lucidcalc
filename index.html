@@ -17,14 +17,13 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 flex items-center justify-center min-h-screen">
-  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+<body class="bg-gray-900 flex items-center justify-center min-h-screen p-8">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full sm:max-w-lg sm:w-full sm:p-10 sm:mx-8">
     <h1 class="text-2xl font-bold text-center text-gray-100 mb-6">LSD Solution Calculator</h1>
 
     <!-- Input Fields -->
     <div class="space-y-4">
-      <!-- Blotter (µg) and Desired µg/drop on the same line -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label for="ugPerBlotter" class="block text-sm font-medium text-gray-400">Blotter (µg):</label>
           <input type="number" id="ugPerBlotter" placeholder="e.g., 200" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="autoCalculate()">
@@ -35,8 +34,7 @@
         </div>
       </div>
 
-      <!-- Total volume (mL) and Drops per mL on the same line -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label for="solventVolume" class="block text-sm font-medium text-gray-400">Total volume (mL):</label>
           <input type="number" id="solventVolume" placeholder="e.g., 4" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="autoCalculate()">
@@ -48,56 +46,22 @@
       </div>
     </div>
 
-    <!-- Results (Two-Column Layout, 50%-50%, Same Gap) -->
+    <!-- Results Grid -->
     <div id="results" class="mt-6">
-      <!-- Results Grid -->
       <div class="grid grid-cols-2 gap-4">
-        <!-- Labels -->
-        <p class="text-sm text-gray-400">Total LSD needed:</p>
-        <p class="font-medium text-gray-100"><span id="totalLSD">-</span> <span class="text-gray-400">µg</span></p>
+        <p class="text-sm text-gray-400">Total:</p>
+        <p class="font-medium text-gray-100 text-sm"><span id="totalLSD">-</span> <span class="text-gray-400">µg</span></p>
 
         <p class="text-sm text-gray-400">Concentration:</p>
-        <p class="font-medium text-gray-100"><span id="concentration">-</span> <span class="text-gray-400">µg/mL</span></p>
+        <p class="font-medium text-gray-100 text-sm"><span id="concentration">-</span> <span class="text-gray-400">µg/mL</span></p>
 
-        <p class="text-sm text-gray-400">LSD per drop:</p>
-        <p class="font-medium text-gray-100"><span id="ugPerDrop">-</span> <span class="text-gray-400">µg/drop</span></p>
+        <p class="text-sm text-gray-400">Per drop:</p>
+        <p class="font-medium text-gray-100 text-sm"><span id="ugPerDrop">-</span> <span class="text-gray-400">µg/drop</span></p>
 
-        <p class="text-sm text-gray-400">Recommended blotters:</p>
-        <p class="font-medium text-gray-100"><span id="recommendedBlotters">-</span></p>
+        <p class="text-sm text-gray-400">Blotters:</p>
+        <p class="font-medium text-gray-100 text-sm"><span id="recommendedBlotters">-</span></p>
       </div>
     </div>
   </div>
-
-  <script>
-    // Auto-calculate function
-    function autoCalculate() {
-      // Get inputs
-      const ugPerBlotter = parseFloat(document.getElementById('ugPerBlotter').value);
-      const solventVolume = parseFloat(document.getElementById('solventVolume').value);
-      const dropsPerML = parseFloat(document.getElementById('dropsPerML').value);
-      const desiredUgPerDrop = parseFloat(document.getElementById('desiredUgPerDrop').value);
-
-      // Calculate total LSD needed
-      const totalLSD = desiredUgPerDrop * dropsPerML * solventVolume;
-
-      // Calculate concentration
-      const concentration = totalLSD / solventVolume;
-
-      // Calculate LSD per drop
-      const ugPerDrop = concentration / dropsPerML;
-
-      // Recommend blotters
-      let recommendedBlotters = '-';
-      if (ugPerBlotter && totalLSD) {
-        recommendedBlotters = Math.ceil(totalLSD / ugPerBlotter);
-      }
-
-      // Display results
-      document.getElementById('totalLSD').textContent = isNaN(totalLSD) ? '-' : totalLSD.toFixed(2);
-      document.getElementById('concentration').textContent = isNaN(concentration) ? '-' : concentration.toFixed(2);
-      document.getElementById('ugPerDrop').textContent = isNaN(ugPerDrop) ? '-' : ugPerDrop.toFixed(2);
-      document.getElementById('recommendedBlotters').textContent = recommendedBlotters;
-    }
-  </script>
 </body>
 </html>
