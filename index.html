@@ -63,5 +63,26 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function autoCalculate() {
+      const ugPerBlotter = parseFloat(document.getElementById('ugPerBlotter').value);
+      const solventVolume = parseFloat(document.getElementById('solventVolume').value);
+      const dropsPerML = parseFloat(document.getElementById('dropsPerML').value);
+      const desiredUgPerDrop = parseFloat(document.getElementById('desiredUgPerDrop').value);
+
+      if (!isNaN(ugPerBlotter) && !isNaN(solventVolume) && !isNaN(dropsPerML) && !isNaN(desiredUgPerDrop)) {
+        const totalLSD = desiredUgPerDrop * dropsPerML * solventVolume;
+        const concentration = totalLSD / solventVolume;
+        const ugPerDrop = concentration / dropsPerML;
+        const recommendedBlotters = Math.ceil(totalLSD / ugPerBlotter);
+
+        document.getElementById('totalLSD').textContent = totalLSD.toFixed(2);
+        document.getElementById('concentration').textContent = concentration.toFixed(2);
+        document.getElementById('ugPerDrop').textContent = ugPerDrop.toFixed(2);
+        document.getElementById('recommendedBlotters').textContent = recommendedBlotters;
+      }
+    }
+  </script>
 </body>
 </html>
